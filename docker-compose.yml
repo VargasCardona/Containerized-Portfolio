@@ -1,6 +1,28 @@
-version: '3'
-
 services:
+  portfolio-database:
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
+    container_name: portfolio-database
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database/volumes:/var/lib/mysql
+    hostname: portfolio
+    networks:
+      - net_portfolio
+    healthcheck:
+        test: ["CMD","mysql", "-u", "root", "-proot"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+  management:
+    image: adminer
+    container_name: database-management
+    ports:
+      - 8080:8080
+    networks:
+      - net_portfolio
   web:
     build: ./web-host/react-portfolio/
     container_name: web-host
@@ -8,3 +30,8 @@ services:
       - "80:5173" 
     volumes:
       - ./web-host/react-portfolio:/app
+
+networks:
+  net_portfolio:
+      driver: bridge
+      name: net_portfolio
