@@ -1,5 +1,5 @@
 services:
-  portfolio-database:
+  database:
     build: 
       context: ./database
       dockerfile: Dockerfile
@@ -8,7 +8,7 @@ services:
       - 3306:3306
     volumes:
       - ./database/volumes:/var/lib/mysql
-    hostname: portfolio
+    hostname: forms
     networks:
       - net_portfolio
     healthcheck:
@@ -16,6 +16,18 @@ services:
         interval: 30s
         timeout: 10s
         retries: 5
+  fastapi:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    ports:
+      - "9000:9000"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - net_portfolio
   management:
     image: adminer
     container_name: database-management
@@ -30,7 +42,8 @@ services:
       - "80:5173" 
     volumes:
       - ./web-host/react-portfolio:/app
-
+    networks:
+      - net_portfolio
 networks:
   net_portfolio:
       driver: bridge
