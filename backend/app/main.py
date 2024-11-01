@@ -31,7 +31,7 @@ app = FastAPI(lifespan=lifespan, title="Microservice for contact forms")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost", "http://localhost:5173", "http://nicolasvargas.com"], 
+    allow_origins=["https://localhost", "https://localhost:5173", "https://nicolasvargas.com", "https://192.168.63.146:443"], 
     allow_credentials=True,
     allow_methods=["*"], 
     allow_headers=["*"],

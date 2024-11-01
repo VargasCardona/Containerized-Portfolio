@@ -39,7 +39,7 @@ services:
     build: ./web-host/react-portfolio/
     container_name: web-host
     ports:
-      - "80:5173" 
+      - "443:5173" 
     volumes:
       - ./web-host/react-portfolio:/app
     networks:
