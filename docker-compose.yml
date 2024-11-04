@@ -8,6 +8,7 @@ services:
       - 3306:3306
     volumes:
       - ./database/volumes:/var/lib/mysql
+      - ./database/.backups:/backup
     hostname: forms
     networks:
       - net_portfolio
@@ -16,6 +17,26 @@ services:
         interval: 30s
         timeout: 10s
         retries: 5
+
+  dbBackup:
+    image: fradelg/mysql-cron-backup
+    container_name: portfolio-backup
+    depends_on:
+      - database
+    volumes:
+      - ./database/.backups:/backup
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASS=root
+      - MYSQL_DB=forms
+      - CRON_TIME=0 0 * * *
+      - MYSQL_HOST=database
+      - MYSQL_PORT=3306
+      - TIMEOUT=30s
+      - INIT_BACKUP=1  
+    networks:
+      - net_portfolio
+
   fastapi:
     build: 
       context: ./backend
@@ -28,6 +49,7 @@ services:
         condition: service_healthy
     networks:
       - net_portfolio
+
   management:
     image: adminer
     container_name: database-management
@@ -35,6 +57,7 @@ services:
       - 8080:8080
     networks:
       - net_portfolio
+
   web:
     build: ./web-host/react-portfolio/
     container_name: web-host
@@ -44,6 +67,7 @@ services:
       - ./web-host/react-portfolio:/app
     networks:
       - net_portfolio
+
 networks:
   net_portfolio:
       driver: bridge

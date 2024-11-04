@@ -7,8 +7,6 @@ type ContactFormData = {
   message: string;
 };
 
-
-
 export default function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>({ name: '', email: '', message: '' });
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
@@ -22,7 +20,7 @@ export default function ContactForm() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:9000/api/form/', formData);
-      setSubmitMessage(response.data.message);
+      setSubmitMessage('Submitted Successfully!');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       setSubmitMessage('Error submitting the form');
@@ -33,7 +31,7 @@ export default function ContactForm() {
 };
 
 return (
-  <section className="bg-black text-white py-20 px-6 md:px-12 lg:px-24">
+  <section id="contactForm" className="bg-black text-white py-20 px-6 md:px-12 lg:px-24">
     <div className="max-w-4xl mx-auto">
       <h2 className="text-4xl font-bold mb-12 text-center text-white-800">Get in Touch</h2>
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">

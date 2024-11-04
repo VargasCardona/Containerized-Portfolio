@@ -46,13 +46,14 @@ export default function HeroSection() {
               >
                 <Button
                   className="bg-white text-black hover:bg-white/90 text-lg px-8 py-6"
-                  onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => document.getElementById('contactForm')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Get in Touch
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button
                   className="bg-white text-black hover:bg-white/90 text-lg px-8 py-6"
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   View Projects
                 </Button>

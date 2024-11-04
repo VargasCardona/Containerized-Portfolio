@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import personalInfo from '../data/personalInfo';
 
 export default function Header() {
-const [isVisible, setIsVisible] = useState(true)
+const [activeSection, setActiveSection] = useState('')
 
   const personalInfo = {
     name: "Nicolás Vargas Cardona"
@@ -16,9 +16,34 @@ const [isVisible, setIsVisible] = useState(true)
     return () => clearTimeout(timer)
   }, [])
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'projects', 'skills', 'contact']
+      let current = ''
+
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element && window.scrollY >= element.offsetTop - 100) {
+          current = section
+        }
+      }
+
+      setActiveSection(current)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <>
-      {/* The welcome message bar */}
   {/* 
   {isVisible && (
     <div className="bg-blue-600 text-white py-2 px-4 text-center">
@@ -33,12 +58,14 @@ const [isVisible, setIsVisible] = useState(true)
           <ul className="flex space-x-2 sm:space-x-6">
             {['About', 'Projects', 'Skills', 'Contact'].map((item) => (
               <li key={item}>
-                <a
-                  href={`#${item.toLowerCase()}`}
-                  className="px-3 py-2 rounded-md text-sm font-medium transition duration-300 hover:bg-white/10 hover:text-gray-300"
-                >
-                  {item}
-                </a>
+                <button
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition duration-300 hover:bg-white/10 hover:text-gray-300 ${
+                  activeSection === item.toLowerCase() ? 'bg-white/10 text-gray-300' : ''
+                }`}
+              >
+                {item}
+              </button>
               </li>
             ))}
           </ul>
