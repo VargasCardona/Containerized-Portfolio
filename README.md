@@ -17,7 +17,7 @@ Portfolio developed using **React** for the frontend, **FastAPI** for the backen
 - **Cron Backups**: Automated backups of the database to ensure data integrity and safety.
 
 ## Preview
-![preview](https://github.com/user-attachments/assets/7df6ed99-e775-40d0-9223-d779343b8ee2)
+![2024-11-0413-45-56online-video-cutter com-ezgif com-resize](https://github.com/user-attachments/assets/6367d5a5-24dd-4518-9bb2-af7852eeb3c6)
 
 ## Getting Started
 
