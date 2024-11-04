@@ -16,6 +16,9 @@ Portfolio developed using **React** for the frontend, **FastAPI** for the backen
 - **Adminer**: A lightweight database management tool to interact with the MySQL database.
 - **Cron Backups**: Automated backups of the database to ensure data integrity and safety.
 
+## Preview
+![preview](https://github.com/user-attachments/assets/7df6ed99-e775-40d0-9223-d779343b8ee2)
+
 ## Getting Started
 
 ### Prerequisites
